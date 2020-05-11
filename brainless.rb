@@ -1,3 +1,4 @@
+#レスポンダークラスの作成
 class Responder
   attr_accessor :name
   def initialize(name)
@@ -5,15 +6,12 @@ class Responder
   end
 
   def responce(input)
-    puts "#{input}ってなぁに?"
-  end
-  def name
-    @name
+    "#{input}ってなぁに?"
   end
 end
 
 
-
+#人工無脳Unmoクラスの作成
 class Unmo
   attr_accessor :name
   def initialize(name)
@@ -21,6 +19,7 @@ class Unmo
     @responder = Responder.new('What')
   end
 
+  #ってなぁに?と返すメソッド
   def dialogue(input)
     @responder.responce(input)
   end
@@ -44,7 +43,6 @@ while true
   input = gets
   input.chomp!
   break if input == ''
-
   response = proto.dialogue(input)
-  puts "#{prompt(proto)} #{response}"
+  puts "#{prompt(proto)} #{response} "
 end
