@@ -10,4 +10,5 @@ ruby 2.5.1
 
 
 ### 参考
+RubyでGUIの実装  
 [noanoa 日々の日記](http://blog.livedoor.jp/noanoa07/archives/2134028.html)
