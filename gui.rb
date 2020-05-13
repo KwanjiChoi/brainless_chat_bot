@@ -1,4 +1,5 @@
 require 'gtk3'
+require './brainless.rb'
 
 window = Gtk::Window.new
 #タイトル設定
@@ -10,9 +11,16 @@ cyan = Gdk::RGBA::new(0, 0, 255, 1.0)
 window.override_background_color(:normal, cyan)
 
 def put_text(entry, textview)
-  textview.buffer.text += "#{entry.text}\n"  # Entryの内容をTextVeiwのテキストに追加
-  entry.text = ''     # Entryの文字を消す
-  entry.grab_focus    # ボタンをクリックしてもフォーカスをEntryに戻す
+  proto = Unmo.new('proto')
+  if entry.text == ''
+    textview.buffer.text += "ちょっと何言ってるかわかりません\n"
+  else
+    response = proto.dialogue(entry.text)
+    textview.buffer.text += "#{entry.text}\n"
+    textview.buffer.text += "#{response}\n"  # Entryの内容をTextVeiwのテキストに追加
+    entry.text = ''     # Entryの文字を消す
+    entry.grab_focus    # ボタンをクリックしてもフォーカスをEntryに戻す
+  end
 end
 
 text_area1 = Gtk::TextView.new
@@ -25,6 +33,7 @@ entry_area.set_size_request(350, -1)
 entry_area.signal_connect("activate") do
   put_text(entry_area, text_area1)
 end
+
 
 #ボタンの実装
 button = Gtk::Button.new
