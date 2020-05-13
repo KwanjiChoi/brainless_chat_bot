@@ -5,25 +5,26 @@ window = Gtk::Window.new
 #タイトル設定
 window.set_title('人工無能チャットボット　ちんぱん')
 #ウィンドウのサイズ設定
-window.set_size_request(580, 360)
+window.set_size_request(580, 350)
 #ウィンドウの背景設定
-cyan = Gdk::RGBA::new(0, 0, 255, 1.0)
+cyan = Gdk::RGBA::new(0.2, 0.6, 0.2, 0.7)
 window.override_background_color(:normal, cyan)
+@noby = Unmo.new('noby')
 
 def put_text(entry, textview)
-  proto = Unmo.new('proto')
   if entry.text == ''
-    textview.buffer.text += "ちょっと何言ってるかわかりません\n"
+    textview.buffer.text += "  ちんぱん> ちょっと何言ってるかわかりません\n\n"
   else
-    response = proto.dialogue(entry.text)
-    textview.buffer.text += "#{entry.text}\n"
-    textview.buffer.text += "#{response}\n"  # Entryの内容をTextVeiwのテキストに追加
+    response = @noby.dialogue(entry.text)
+    textview.buffer.text += "  > #{entry.text}\n"
+    textview.buffer.text += "  ちんぱん> #{response}\n\n"  # Entryの内容をTextVeiwのテキストに追加
     entry.text = ''     # Entryの文字を消す
     entry.grab_focus    # ボタンをクリックしてもフォーカスをEntryに戻す
   end
 end
 
 text_area1 = Gtk::TextView.new
+text_area1.buffer.text += "  ちんぱん> こんにちはちんぱんです！\n"
 
 text_area2 = Gtk::TextView.new
 text_area2.set_size_request(275, 60)

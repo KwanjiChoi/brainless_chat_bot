@@ -4,10 +4,6 @@ class Responder
   def initialize(name)
     @name = name
   end
-  #継承先で定義するならいらないかな
-  def response(input)
-    "#{input}ってなぁに?"
-  end
 end
 
 #Unmoでどのclassをnewするかによって処理を変える
@@ -20,9 +16,24 @@ end
 class RandomResponder < Responder
   def initialize(name)
     super
-    @responses = ['今日は寒いね','ごめん、ちょっと待って','あ、はい','うるさい','昨日10円ひろった']
+    @phrases = []
+    #ファイルからランダムな反応を取ってくる
+    open('disc/random.txt') do |f|
+      f.each do |line|
+        line.chomp!
+        next if line.empty?
+        @phrases << line
+      end
+    end
   end
+
   def response(input)
-    @responses[rand(@responses.size)]
+    select_random(@phrases)
   end
+
+  private
+  def select_random(ary)
+    ary[rand(ary.size)]
+  end
+
 end
