@@ -1,3 +1,5 @@
+#コマンドプロンプト用
+
 require './brainless.rb'
 
 def prompt(unmo)
