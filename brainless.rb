@@ -4,10 +4,11 @@ require './dictionary.rb'
 #人工無脳Unmoクラスの作成
 
 class Unmo
+  attr_reader :name
   def initialize(name)
     @name = name
 
-    @dictionary = Dictionary.new         # (1)
+    @dictionary = Dictionary.new
 
     @resp_what = WhatResponder.new('What', @dictionary)
     @resp_random = RandomResponder.new('Random', @dictionary)
@@ -31,9 +32,4 @@ class Unmo
     return @responder.name
   end
 
-  attr_reader :name
-end
-
-def select_random(ary)
-  return ary[rand(ary.size)]
 end

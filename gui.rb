@@ -17,14 +17,14 @@ def put_text(entry, textview)
   else
     response = @noby.dialogue(entry.text)
     textview.buffer.text += "  > #{entry.text}\n"
-    textview.buffer.text += "  ちんぱん> #{response}\n\n"  # Entryの内容をTextVeiwのテキストに追加
+    textview.buffer.text += "  ちんぱん> #{response}\n"  # Entryの内容をTextVeiwのテキストに追加
     entry.text = ''     # Entryの文字を消す
     entry.grab_focus    # ボタンをクリックしてもフォーカスをEntryに戻す
   end
 end
 
 text_area1 = Gtk::TextView.new
-text_area1.buffer.text += "  ちんぱん> こんにちはちんぱんです！\n"
+text_area1.buffer.text += "  ちんぱん> こんにちはちんぱんやでぇ！\n"
 
 text_area2 = Gtk::TextView.new
 text_area2.set_size_request(275, 60)
@@ -50,7 +50,7 @@ end
 #スクロールバーの実装
 scrolled_area = Gtk::ScrolledWindow.new
 scrolled_area.set_size_request(220, 260)
-scrolled_area.set_policy(:never, :always)  # スクロールバー；横は無し、縦は常に表示
+scrolled_area.set_policy(:always, :always)  # スクロールバー；横は無し、縦は常に表示
 scrolled_area.add(text_area1)
 
 #imageの実装

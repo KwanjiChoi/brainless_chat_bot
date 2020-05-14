@@ -39,7 +39,7 @@ class PatternResponder < Responder
         return resp.gsub(/%match%/,m.to_s)
       end
     end
-
+    #正規表現に引っかからなかったらrondomを返す
     return select_random(@dictionary.random)
   end
 end

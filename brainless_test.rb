@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require './responder.rb'
 require './brainless.rb'
+require './dictionary.rb'
 class BrainlessTest < Minitest::Test
   def test_sample
     res = WhatResponder.new('what')
