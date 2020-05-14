@@ -1,21 +1,39 @@
 require './responder.rb'
-
+require './dictionary.rb'
 
 #人工無脳Unmoクラスの作成
+
 class Unmo
-  attr_accessor :name
   def initialize(name)
     @name = name
-    @what_responder = WhatResponder.new('what')
-    @rand_responder = RandomResponder.new('Random')
-    @responder = @rand_responder
+
+    @dictionary = Dictionary.new         # (1)
+
+    @resp_what = WhatResponder.new('What', @dictionary)
+    @resp_random = RandomResponder.new('Random', @dictionary)
+    @resp_pattern = PatternResponder.new('Pattern', @dictionary)
+    @responder = @resp_pattern
   end
 
-  #responderが受け取るクラスによってと返す言葉が変わる
   def dialogue(input)
-    @responder = rand(2) == 0 ? @what_responder : @rand_responder
-    #responseを返すメソッド
-    @responder.response(input)
+    case rand(100)
+    when 0..79
+      @responder = @resp_pattern
+    when 80..94
+      @responder = @resp_random
+    else
+      @responder = @resp_what
+    end
+    return @responder.response(input)
   end
 
+  def responder_name
+    return @responder.name
+  end
+
+  attr_reader :name
+end
+
+def select_random(ary)
+  return ary[rand(ary.size)]
 end
